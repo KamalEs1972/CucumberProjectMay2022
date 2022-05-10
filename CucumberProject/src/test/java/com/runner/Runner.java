@@ -15,8 +15,8 @@ import io.cucumber.junit.CucumberOptions;
 				
 			//strict = true,
 			dryRun=false
-)
 
+)
 public class Runner {
 
 }

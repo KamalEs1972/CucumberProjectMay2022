@@ -1,10 +1,13 @@
 package com.stepDefiniton;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,12 +28,12 @@ public class LoginSteps {
 	  
 	}
 
-	@When("user use valid name and password")
-			public void user_use_valid_name_and_password() {
+	@When("^user use valid (.*) and (.*)$")
+			public void user_enters__username_and_password (String username1, String password1) throws Throwable {
 		System.out.println("Step2: User enters valid userName and Password");
 	    
-	driver.findElement(By.id("txtUsername")).sendKeys("Admin");
-	driver.findElement(By.id("txtPassword")).sendKeys("admin123");
+	driver.findElement(By.id("txtUsername")).sendKeys(username1);
+	driver.findElement(By.id("txtPassword")).sendKeys(password1);
 	}
 
 	@When("user clicks on loginButton")
@@ -48,9 +51,20 @@ public class LoginSteps {
 		WebElement picture=driver.findElement(By.xpath("//img[@alt='OrangeHRM']"));
 		picture.isDisplayed();
 		
-		driver.close();
+		driver.quit();
 	}
 
 
+	@When("user use valid credentials using DataTable")
+	public void user_use_valid_credentials_using_data_table(DataTable dataTable) {
+	    
+		System.out.println("Step2: User enters valid userName and Password");
+		List<List<String>> data=dataTable.cells();
+	    
+		driver.findElement(By.id("txtUsername")).sendKeys(data.get(0).get(0));
+		driver.findElement(By.id("txtPassword")).sendKeys(data.get(0).get(1));
 
-}
+
+
+
+}}
